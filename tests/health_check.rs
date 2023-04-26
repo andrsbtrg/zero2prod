@@ -1,4 +1,5 @@
 use std::net::TcpListener;
+use zero2prod::startup::run;
 
 fn spawn_app() -> String {
     let lst = TcpListener::bind("127.0.0.1:0").unwrap();
@@ -6,7 +7,7 @@ fn spawn_app() -> String {
     // retrieve the port assigned by the OS
     let port = lst.local_addr().unwrap().port();
 
-    let _ = tokio::spawn(zero2prod::run(lst).expect("Failed to bind radom port."));
+    let _ = tokio::spawn(run(lst).expect("Failed to bind radom port."));
     format!("http://127.0.0.1:{}", port)
 }
 
