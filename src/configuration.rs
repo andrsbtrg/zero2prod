@@ -20,3 +20,12 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     let config = builder.build()?;
     config.try_deserialize()
 }
+
+impl DatabaseSettings {
+    pub fn connection_string(&self) -> String {
+        format!(
+            "postgres://{}:{}@{}/{}",
+            self.username, self.password, self.host, self.database_name
+        )
+    }
+}
