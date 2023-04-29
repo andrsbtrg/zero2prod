@@ -28,4 +28,12 @@ impl DatabaseSettings {
             self.username, self.password, self.host, self.database_name
         )
     }
+    /// Returns the connection string without db of this [`DatabaseSettings`].
+    /// Ommiting the database name we connect to the Postgres instance
+    pub fn connection_string_without_db(&self) -> String {
+        format!(
+            "postgres://{}:{}@{}:{}",
+            self.username, self.password, self.host, self.port
+        )
+    }
 }
